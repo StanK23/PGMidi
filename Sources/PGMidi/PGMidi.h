@@ -3,12 +3,7 @@
 //  PGMidi
 //
 
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
-    #import <UIKit/UIKit.h>
-#else
-    #import <Foundation/Foundation.h>
-#endif
-
+#import <UIKit/UIKit.h>
 #import <CoreMIDI/CoreMIDI.h>
 
 #import "PGArc.h"
@@ -135,8 +130,6 @@ extern NSString * const PGMidiConnectionKey;
 @property (nonatomic,readonly) PGMidiDestination *virtualSourceDestination;
 @property (nonatomic,retain)   NSString          *virtualEndpointName;
 @property (nonatomic,assign)   BOOL               networkEnabled;
-
-/// Remember to set the UIBackgroundModes plist property for virtual sources to work
 @property (nonatomic,assign)   BOOL               virtualSourceEnabled;
 @property (nonatomic,assign)   BOOL               virtualDestinationEnabled;
 
@@ -144,4 +137,8 @@ extern NSString * const PGMidiConnectionKey;
 - (void) sendBytes:(const UInt8*)bytes size:(UInt32)size;
 - (void) sendPacketList:(const MIDIPacketList *)packetList;
 
+// Sajat mod
+/// Send a MIDI byte stream to a selected MIDI port
+- (void) sendBytesTo:(const UInt8*)bytes size:(UInt32)size destid:(unsigned long)destid;
+- (void) sendPacketListTo:(const MIDIPacketList *)packetList destid:(unsigned long)destid;
 @end
